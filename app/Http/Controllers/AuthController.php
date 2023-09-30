@@ -6,62 +6,130 @@ use App\Models\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAuthRequest;
 use App\Http\Requests\UpdateAuthRequest;
+use App\Repositories\AuthRepository;
+
+
+
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+
+    public function __construct( AuthRepository $repository) {
+        $this->repository = $repository;
     }
 
     /**
-     * Show the form for creating a new resource.
+     *  * @OA\Post(
+    *     path="/Login",
+    *     tags={"Auth"},
+    *     summary="Login do usuario",
+    *     description="Retorna o token jwt para o login do usuario",
+    *     @OA\RequestBody(
+    *       required = true,
+    *      @OA\JsonContent(
+    *           type="object",
+    *            @OA\Property(property="email",type="string"),
+    *            @OA\Property(property="password",type="string")
+    *       )
+    *    ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="Resposta de sucesso: ok",
+    *           @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  format="string",
+     *                  default="token de acesso : ",
+     *                  description=" string indicando o token",
+     *                  property="string"
+     *              ),
+     *              @OA\Property(
+     *                  format="string",
+     *                  default="20d338931e8d6bd9466edeba78ea7dce7c7bc01aa5cc5b4735691c50a2fe3228",
+     *                  description="token",
+     *                  property="token"
+     *              ),
+     *              @OA\Property(
+     *                  format="integer",
+     *                  default="200",
+     *                  description="status da resposta",
+     *                  property="integer"
+     *              )
+     *          )
+    *     )
+    *)
      */
-    public function create()
-    {
-        //
+    public function login(StoreAuthRequest $request){
+        return $this->repository->login($request);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *  path="/logout",
+     *  tags={"Auth"},
+     *  summary="Logout do usuario",
+     *  description="Faz o logout do usuario",
+    *  security={{ "apiAuth": {} }}
+     *     ,
+     *  @OA\Response(
+    *         response=200,
+    *         description="Resposta de sucesso: ok",
+    *           @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  format="string",
+     *                  default=" msg",
+     *                  description=" string indicando a mensagem",
+     *                  property="string"
+     *              ),
+     *              @OA\Property(
+     *                  format="string",
+     *                  default="logout realizado",
+     *                  description="mensagem falando que o usuario foi deslogado",
+     *
+     *              ),
+     *
+     *          )
+    *     )
+     * )
      */
-    public function store(StoreAuthRequest $request)
-    {
-        //
+    public function logout() {
+
+        return $this->repository->logout();
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Post(
+     *  path="/refresh",
+     *  tags={"Auth"},
+     *  summary="Refresh do token",
+     *  description="Faz o refresh do token",
+     * security={{ "apiAuth": {} }},
+     *  @OA\Response(
+    *         response=200,
+    *         description="Resposta de sucesso: ok",
+    *           @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                  format="string",
+     *                  default=" token",
+     *                  description=" mensagem indicando o token",
+     *                  property="string"
+     *              ),
+     *             @OA\Property(
+     *                  format="string",
+     *                  default="20d338931e8d6bd9466edeba78ea7dce7c7bc01aa5cc5b4735691c50a2fe3228",
+     *                  description="token",
+     *                  property="token"
+     *              ),
+     *
+     *          )
+    *     )
+     * )
      */
-    public function show(Auth $auth)
-    {
-        //
+    public function refresh() {
+        return $this->repository->refresh();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Auth $auth)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateAuthRequest $request, Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Auth $auth)
-    {
-        //
-    }
 }

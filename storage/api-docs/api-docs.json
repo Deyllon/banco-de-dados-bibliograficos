@@ -1,0 +1,867 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Um repositorio de autores e suas obras",
+        "description": "Um repositorio para agrupar todos os autores e suas obras conhecidas da humanidade",
+        "termsOfService": "https://minhaapi.com/terms",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api/v1/"
+        }
+    ],
+    "paths": {
+        "/Login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login do usuario",
+                "description": "Retorna o token jwt para o login do usuario",
+                "operationId": "7891ab35e16767f4808b265e4a3cc62c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Resposta de sucesso: ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "string": {
+                                            "description": " string indicando o token",
+                                            "format": "string",
+                                            "default": "token de acesso : "
+                                        },
+                                        "token": {
+                                            "description": "token",
+                                            "format": "string",
+                                            "default": "20d338931e8d6bd9466edeba78ea7dce7c7bc01aa5cc5b4735691c50a2fe3228"
+                                        },
+                                        "integer": {
+                                            "description": "status da resposta",
+                                            "format": "integer",
+                                            "default": "200"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout do usuario",
+                "description": "Faz o logout do usuario",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "Resposta de sucesso: ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "string": {
+                                            "description": " string indicando a mensagem",
+                                            "format": "string",
+                                            "default": " msg"
+                                        },
+                                        "": {
+                                            "description": "mensagem falando que o usuario foi deslogado",
+                                            "format": "string",
+                                            "default": "logout realizado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh do token",
+                "description": "Faz o refresh do token",
+                "operationId": "0c3ea3c61aed881016646810460499e9",
+                "responses": {
+                    "200": {
+                        "description": "Resposta de sucesso: ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "string": {
+                                            "description": " mensagem indicando o token",
+                                            "format": "string",
+                                            "default": " token"
+                                        },
+                                        "token": {
+                                            "description": "token",
+                                            "format": "string",
+                                            "default": "20d338931e8d6bd9466edeba78ea7dce7c7bc01aa5cc5b4735691c50a2fe3228"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/Autor": {
+            "get": {
+                "tags": [
+                    "Autor"
+                ],
+                "operationId": "1a9489842acc20e58065da6495c07a79",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "Autor": {
+                                                "description": "nome do Autor",
+                                                "format": "string",
+                                                "default": "tolkien"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Autor"
+                ],
+                "summary": "Criar um autor",
+                "description": "Cria um autor",
+                "operationId": "98b5ffd7c1d1c7b3aef5a21b76328601",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "nome": {
+                                            "description": "nome do autor",
+                                            "format": "string",
+                                            "default": "tokien"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/Autor/{Autor}": {
+            "get": {
+                "tags": [
+                    "Autor"
+                ],
+                "operationId": "6e205f136862cf08f4abc1042cf5de7d",
+                "parameters": [
+                    {
+                        "name": "Autor",
+                        "in": "path",
+                        "description": "Id do Autor",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "nome": {
+                                            "description": "tolkien",
+                                            "format": "string",
+                                            "default": "tolkien"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Autor"
+                ],
+                "summary": "Atualizar um Autor",
+                "description": "Atualizar um Autor",
+                "operationId": "b9c0d64501d531bd87414d9635367f66",
+                "parameters": [
+                    {
+                        "name": "Autor",
+                        "in": "path",
+                        "description": "Id do livro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "nome": {
+                                            "description": "nome do autor",
+                                            "format": "string",
+                                            "default": "tolkien"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Autor"
+                ],
+                "summary": "Remove o Autor especifico",
+                "description": "Remove o livro",
+                "operationId": "079ab20256d629507bb3b3d6c6427328",
+                "parameters": [
+                    {
+                        "name": "Autor",
+                        "in": "path",
+                        "description": "Id do livro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Autor deletado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "string": {
+                                            "description": " string indicando a mensagem",
+                                            "format": "string",
+                                            "default": " msg"
+                                        },
+                                        "": {
+                                            "description": "mensagem falando que o Autor foi deletado",
+                                            "format": "string",
+                                            "default": "Autor deletado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/Livro": {
+            "get": {
+                "tags": [
+                    "Livro"
+                ],
+                "operationId": "8907fa605d04e363054cc6eda312d2de",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "titulo": {
+                                                "description": "nome do livro",
+                                                "format": "string",
+                                                "default": "senhor dos aneis"
+                                            },
+                                            "genero": {
+                                                "description": "genero do livro",
+                                                "format": "string",
+                                                "default": "fantasia"
+                                            },
+                                            "autor_id": {
+                                                "description": "id do autor do livro",
+                                                "format": "integer",
+                                                "default": "1"
+                                            },
+                                            "numeroPaginas": {
+                                                "description": "numero de paginas do livro",
+                                                "format": "string",
+                                                "default": "2000"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Livro"
+                ],
+                "summary": "Criar um Livro",
+                "description": "Cria um Livro",
+                "operationId": "fb54096a5a7748ae04b6a4d35d1d5225",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "genero": {
+                                        "type": "string"
+                                    },
+                                    "titulo": {
+                                        "type": "string"
+                                    },
+                                    "numeroPaginas": {
+                                        "type": "integer"
+                                    },
+                                    "autor_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "titulo": {
+                                            "description": "nome do livro",
+                                            "format": "string",
+                                            "default": "senhor dos aneis"
+                                        },
+                                        "genero": {
+                                            "description": "genero do livro",
+                                            "format": "string",
+                                            "default": "fantasia"
+                                        },
+                                        "autor_id": {
+                                            "description": "id do autor do livro",
+                                            "format": "integer",
+                                            "default": "1"
+                                        },
+                                        "numeroPaginas": {
+                                            "description": "numero de paginas do livro",
+                                            "format": "string",
+                                            "default": "2000"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/Livro/{Livro}": {
+            "get": {
+                "tags": [
+                    "Livro"
+                ],
+                "operationId": "5df9bf654b37d5003e4915faed85c96b",
+                "parameters": [
+                    {
+                        "name": "Livro",
+                        "in": "path",
+                        "description": "Id do livro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "titulo": {
+                                            "description": "nome do livro",
+                                            "format": "string",
+                                            "default": "senhor dos aneis"
+                                        },
+                                        "genero": {
+                                            "description": "genero do livro",
+                                            "format": "string",
+                                            "default": "fantasia"
+                                        },
+                                        "autor_id": {
+                                            "description": "id do autor do livro",
+                                            "format": "integer",
+                                            "default": "1"
+                                        },
+                                        "numeroPaginas": {
+                                            "description": "numero de paginas do livro",
+                                            "format": "string",
+                                            "default": "2000"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Livro"
+                ],
+                "summary": "Atualizar um Livro",
+                "description": "Atualizar um Livro",
+                "operationId": "9d2ee9f67449fa174123a34cdd66034a",
+                "parameters": [
+                    {
+                        "name": "Livro",
+                        "in": "path",
+                        "description": "Id do livro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "genero": {
+                                        "type": "string"
+                                    },
+                                    "titulo": {
+                                        "type": "string"
+                                    },
+                                    "numeroPaginas": {
+                                        "type": "integer"
+                                    },
+                                    "autor_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "titulo": {
+                                            "description": "nome do livro",
+                                            "format": "string",
+                                            "default": "senhor dos aneis"
+                                        },
+                                        "genero": {
+                                            "description": "genero do livro",
+                                            "format": "string",
+                                            "default": "fantasia"
+                                        },
+                                        "autor_id": {
+                                            "description": "id do autor do livro",
+                                            "format": "integer",
+                                            "default": "1"
+                                        },
+                                        "numeroPaginas": {
+                                            "description": "numero de paginas do livro",
+                                            "format": "string",
+                                            "default": "2000"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Livro"
+                ],
+                "summary": "Remove o Livro especifico",
+                "description": "Remove o livro",
+                "operationId": "92d3343ae6e305a3492f5a3c505a0ec5",
+                "parameters": [
+                    {
+                        "name": "Livro",
+                        "in": "path",
+                        "description": "Id do livro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Livro deletado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "string": {
+                                            "description": " string indicando a mensagem",
+                                            "format": "string",
+                                            "default": " msg"
+                                        },
+                                        "": {
+                                            "description": "mensagem falando que o Livro foi deletado",
+                                            "format": "string",
+                                            "default": "Livro deletado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/User": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Criar um usuario",
+                "description": "Cria um usuario",
+                "operationId": "7b6848ef7fc0da35b0928f26d759979b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "administrador": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "description": "nome do usuario",
+                                            "format": "string",
+                                            "default": "daniinho"
+                                        },
+                                        "email": {
+                                            "description": "email do usuario",
+                                            "format": "string",
+                                            "default": "deyllonp986@gmail.com"
+                                        },
+                                        "password": {
+                                            "description": "senha do usuario",
+                                            "format": "string",
+                                            "default": "amanha27"
+                                        },
+                                        "administrador": {
+                                            "description": "se um usuario é administrador ou não",
+                                            "format": "boolean",
+                                            "default": "S"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/User/{User}": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Atualizar um Usuario",
+                "description": "Atualizar um Usuario",
+                "operationId": "a72022dacef381050695c369598355f0",
+                "parameters": [
+                    {
+                        "name": "User",
+                        "in": "path",
+                        "description": "Id do usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "administrador": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "email": {
+                                            "description": "email do usuario",
+                                            "format": "string",
+                                            "default": "danilp864@gmail.com"
+                                        },
+                                        "name": {
+                                            "description": "nome do usuario",
+                                            "format": "string",
+                                            "default": "dabip"
+                                        },
+                                        "administrador": {
+                                            "description": "se o usuario é administrador ou não",
+                                            "format": "boolean",
+                                            "default": "N"
+                                        },
+                                        "password": {
+                                            "description": "senha do usuario",
+                                            "format": "string",
+                                            "default": "amazingk"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Pegue o token indo na operação login e passando o email e senha",
+                "name": "Token JWT",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

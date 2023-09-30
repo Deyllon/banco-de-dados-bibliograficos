@@ -11,7 +11,14 @@ class UpdateAutorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = auth('api')->user();
+
+        // Verifique se o usuário é um administrador
+        if ($user && $user->administrador) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
